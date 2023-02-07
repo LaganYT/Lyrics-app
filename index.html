@@ -1,1 +1,50 @@
 <!doctype html><html><head><meta charset="utf-8"/><link rel="icon" href="/Lyrics-app/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><title>Lyric Finder</title><script defer="defer" src="/Lyrics-app/static/js/main.0394eda8.js"></script><link href="/Lyrics-app/static/css/main.6dd985f7.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div></body></html>
+if (data.error) {
+result.innerHTML = data.error;
+}
+else {
+const lyrics = data.lyrics.replace(/(\r\n|\r|\n)/g, '<br>');
+result.innerHTML = `
+<h2><span class="song-artist">${artist}</span> - ${songTitle}</h2>
+<span class="song-lyrics">${lyrics}</span>
+`;
+}
+
+// Clear pagination div
+more.innerHTML = '';
+
+// Clear search value
+search.value = '';
+}  
+
+
+/* EVENT LISTENERS */
+// Search Button Event Listener
+form.addEventListener('submit', e => {
+e.preventDefault(); // prevents submission to file
+
+const searchTerm = search.value.trim();
+searchSongs(searchTerm); // call searchSongs function
+
+//if (!searchTerm) {
+// alert('Please enter a valid search query');
+//}
+//else {
+// searchSongs(searchTerm); // call searchSongs function
+//}
+});
+
+// Get Lyrics Button Event Listener
+result.addEventListener('click', e => {
+const clickedBtn = e.target;
+
+if (clickedBtn.tagName === 'BUTTON') {
+const artist = clickedBtn.getAttribute('data-artist');
+const songTitle = clickedBtn.getAttribute('data-songtitle');
+
+getLyrics(artist, songTitle); // call getLyrics function
+}
+});
+    </script>
+  </body>
+</html>
